@@ -46,4 +46,4 @@ async def calc(a:int, oper:str, b:int):
     await bot.say('Res ' + str(c))
     logging('Command', 'calc, result - ' + str(c))
 
-bot.run(os.getenv(config.bottoken))
+bot.run(os.getenv("TOKEN"))
