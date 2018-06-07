@@ -1,4 +1,4 @@
-import discord, config
+import discord, config, os, asyncio, time
 from discord.ext import commands
 from trash import *
 
@@ -46,4 +46,4 @@ async def calc(a:int, oper:str, b:int):
     await bot.say('Res ' + str(c))
     logging('Command', 'calc, result - ' + str(c))
 
-bot.run(config.bottoken)
+bot.run(os.getenv(config.bottoken))
