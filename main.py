@@ -1,4 +1,4 @@
-import discord, config, os, asyncio, time
+import discord, os, asyncio, time
 from discord.ext import commands
 from trash import *
 
