@@ -13,7 +13,7 @@ async def on_ready():
 async def on_message_delete(message):
     m = str(message.content)
     n = str(message.author)
-    mes = "```"+n+" удалил сообщение \""+m+"\"```"
+    mes = n+" удалил сообщение```\"+m+"```"
     await bot.send_message(message.channel, mes)
     logging("Deleted", mes)
 
@@ -22,7 +22,7 @@ async def on_message_edit(before, after):
     m = str(before.content)
     n = str(before.author)
     ma = str(after.content)
-    mes = "```" + n + " изменил сообщение.\nРанее - "+m+"\nТеперь - "+ma+"```"
+    mes = n + " изменил сообщение.```Ранее - "+m+"\nТеперь - "+ma+"```"
     await bot.send_message(before.channel, mes)
     logging("Edit", mes)
 
