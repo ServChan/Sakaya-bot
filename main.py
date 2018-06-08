@@ -13,7 +13,7 @@ async def on_ready():
 async def on_message_delete(message):
     m = str(message.content)
     n = str(message.author)
-    mes = n+" удалил сообщение```\"+m+"```"
+    mes = n+" удалил сообщение```"+m+"```"
     await bot.send_message(message.channel, mes)
     logging("Deleted", mes)
 
