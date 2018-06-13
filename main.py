@@ -26,6 +26,29 @@ async def on_message_edit(before, after):
     await bot.send_message(before.channel, mes)
     logging("Edit", mes)
 
+@bot.event
+async def on_channel_create(chann):
+    name = chann.name
+    await bot.send_message(chann, "Что это тут у нас? Новый канал?")
+
+@bot.event
+async def on_channel_update(before, after):
+    istherebe = 0
+    channafter = before.name
+    topicafter = before.topic
+    channnow = after.name
+    topicnow = after.topic
+    if channafter != channnow:
+        m = "А у нас тут ремонт!```[НАЗВАНИЕ]\n    Ранее - " + channafter + "\n    Теперь - " + channnow + "```"
+        await bot.send_message(after, m)
+        istherebe = 1
+    if topicafter != topicnow:
+        if istherebe == 0:
+            m = "А у нас тут ремонт!```[ОПИСАНИЕ]\n    Ранее - " + topicafter + "\n    Теперь - " + topicnow + "```"
+        elif istherebe == 1:
+            m = "```[ОПИСАНИЕ]\n    Ранее - " + topicafter + "\n    Теперь - " + topicnow + "```"
+        await bot.send_message(after, m)
+
 @bot.command()
 async def hello():
     await bot.say('Hello!')
