@@ -30,6 +30,7 @@ async def on_message_edit(before, after):
 async def on_channel_create(chann):
     name = chann.name
     await bot.send_message(chann, "Что это тут у нас? Новый канал?")
+    logging("NEW", "Channel created - " + name)
 
 @bot.event
 async def on_channel_update(before, after):
@@ -48,6 +49,7 @@ async def on_channel_update(before, after):
         elif istherebe == 1:
             m = "```[ОПИСАНИЕ]\n    Ранее - " + topicafter + "\n    Теперь - " + topicnow + "```"
         await bot.send_message(after, m)
+    logging("EDIT", "Channel edited - " + channnow)
 
 @bot.command()
 async def hello():
