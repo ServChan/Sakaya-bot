@@ -11,20 +11,26 @@ async def on_ready():
 
 @bot.event
 async def on_message_delete(message):
-    m = str(message.content)
-    n = str(message.author.name)
-    mes = n+" удалил сообщение```"+m+"```"
-    await bot.send_message(message.channel, mes)
-    logging("Deleted", mes)
+    if message.author.bot == False:
+        m = str(message.content)
+        n = str(message.author.name)
+        mes = n + " удалил сообщение```" + m + "```"
+        await bot.send_message(message.channel, mes)
+        logging("Deleted", mes)
+    else:
+        pass
 
 @bot.event
 async def on_message_edit(before, after):
-    m = str(before.content)
-    n = str(before.author.name)
-    ma = str(after.content)
-    mes = n + " изменил сообщение.```Ранее - "+m+"\nТеперь - "+ma+"```"
-    await bot.send_message(before.channel, mes)
-    logging("Edit", mes)
+    if after.author.bot == False:
+        m = str(before.content)
+        n = str(before.author.name)
+        ma = str(after.content)
+        mes = n + " изменил сообщение.```Ранее - " + m + "\nТеперь - " + ma + "```"
+        await bot.send_message(before.channel, mes)
+        logging("Edit", mes)
+    else:
+        pass
 
 @bot.event
 async def on_channel_create(chann):
