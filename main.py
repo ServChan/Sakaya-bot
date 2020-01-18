@@ -2,7 +2,7 @@ import discord, os, asyncio, time
 from discord.ext import commands
 from trash import *
 
-bot = commands.Bot(command_prefix='//', description='your description')
+bot = commands.Bot(command_prefix='>')
 
 @bot.event
 async def on_ready():
@@ -14,20 +14,20 @@ async def on_message_delete(message):
     if message.author.bot == False:
         m = str(message.content)
         n = str(message.author.name)
-        mes = n + " удалил сообщение```" + m + "```"
-        await bot.send_message(message.channel, mes)
+        mes = n + " удалил сообщение ```" + m + "```"
+        await message.channel.send(mes)
         logging("Deleted", mes)
     else:
         pass
 
 @bot.event
 async def on_message_edit(before, after):
-    if after.author.bot == False:
+    if (after.author.bot == False) and not (before == after):
         m = str(before.content)
         n = str(before.author.name)
         ma = str(after.content)
-        mes = n + " изменил сообщение.```Ранее - " + m + "\nТеперь - " + ma + "```"
-        await bot.send_message(before.channel, mes)
+        mes = n + " изменил сообщение. ```Ранее - " + m + "\nТеперь - " + ma + "```"
+        await before.channel.send(mes)
         logging("Edit", mes)
     else:
         pass
@@ -35,7 +35,7 @@ async def on_message_edit(before, after):
 @bot.event
 async def on_channel_create(chann):
     name = chann.name
-    await bot.send_message(chann, "Что это тут у нас? Новый канал?")
+    await chann.channel.send("Что это тут у нас? Новый канал?")
     logging("NEW", "Channel created - " + name)
 
 @bot.event
@@ -46,35 +46,20 @@ async def on_channel_update(before, after):
     channnow = after.name
     topicnow = after.topic
     if channafter != channnow:
-        m = "А у нас тут ремонт!```[НАЗВАНИЕ]\n    Ранее - " + channafter + "\n    Теперь - " + channnow + "```"
-        await bot.send_message(after, m)
+        m = "А у нас тут ремонт! ```[НАЗВАНИЕ]\n    Ранее - " + channafter + "\n    Теперь - " + channnow + "```"
+        await after.channel.send(m)
         istherebe = 1
     if topicafter != topicnow:
         if istherebe == 0:
-            m = "А у нас тут ремонт!```[ОПИСАНИЕ]\n    Ранее - " + topicafter + "\n    Теперь - " + topicnow + "```"
+            m = "А у нас тут ремонт! ```[ОПИСАНИЕ]\n    Ранее - " + topicafter + "\n    Теперь - " + topicnow + "```"
         elif istherebe == 1:
             m = "```[ОПИСАНИЕ]\n    Ранее - " + topicafter + "\n    Теперь - " + topicnow + "```"
-        await bot.send_message(after, m)
+        await after.channel.send(m)
     logging("EDIT", "Channel edited - " + channnow)
 
 @bot.command()
-async def hello():
-    await bot.say('Hello!')
-    logging('Command', 'hello')
-
-@bot.command()
-async def calc(a:int, oper:str, b:int):
-    if oper == "+":
-        c = a+b
-    elif oper == "*":
-        c = a*b
-    elif oper == "-":
-        c = a-b
-    elif oper == "/":
-        c = a/b
-    else:
-        c = 'nothing. Wrong command.'
-    await bot.say('Res ' + str(c))
-    logging('Command', 'calc, result - ' + str(c))
+async def hello(ctx):
+    await ctx.send('Hello!')
+    logging('Command', '>hello')
 
 bot.run(os.getenv("TOKEN"))
