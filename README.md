@@ -2,4 +2,4 @@
 Sentinel bot for Discord  
 
 
-##№ Bot is no longer updated
+### Bot is no longer updated
